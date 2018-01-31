@@ -24,5 +24,15 @@
         "psr-4": {
             "Novius\\Backpack\\VisualComposer\\": "src"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Novius\\Backpack\\VisualComposer\\VisualComposerServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
     }
 }
