@@ -14,7 +14,7 @@
                 'change blur keydown',
                 '.{{ $class }} textarea',
                 function () {
-                    $('.{{ $class }} [type=hidden]').val(this.value);
+                    $('.vc-rows .{{ $class }} [type=hidden]').val(this.value);
                 }
             );
         });

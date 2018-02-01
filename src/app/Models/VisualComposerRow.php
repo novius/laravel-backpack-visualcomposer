@@ -48,7 +48,7 @@ class VisualComposerRow extends Model
         static::addGlobalScope(
             'order',
             function (Builder $builder) {
-                $builder->orderBy('visualcomposer_row.order', 'desc');
+                $builder->orderBy('visualcomposer_row.order', 'asc');
             }
         );
     }

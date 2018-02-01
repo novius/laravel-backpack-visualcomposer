@@ -4,12 +4,12 @@ namespace Novius\Backpack\VisualComposer\Templates;
 
 use Novius\Backpack\VisualComposer\Models\VisualComposerRow;
 
-abstract class RowTemplate
+abstract class RowTemplateAbstract
 {
     static public $name = 'Unknown row type';
     static public $description = 'This row type doesn’t have a description attached';
 
-    static public function renderCrud(VisualComposerRow $model = null)
+    static public function renderCrud($model = null)
     {
         $model = $model ?: VisualComposerRow::dummy(get_called_class());
 
@@ -19,7 +19,7 @@ abstract class RowTemplate
         );
     }
 
-    static public function renderFront(VisualComposerRow $model = null)
+    static public function renderFront($model = null)
     {
         $model = $model ?: VisualComposerRow::dummy(get_called_class());
 

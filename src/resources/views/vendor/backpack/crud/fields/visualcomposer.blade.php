@@ -1,7 +1,6 @@
 {{-- Only one Visual Composer per CRUD --}}
 @if ($crud->checkIfFieldIsFirstOfItsType($field, $fields))
-    <div id="visualcomposer_{{ $field['name'] }}"
-            @include('crud::inc.field_wrapper_attributes')>
+    <div id="visualcomposer_{{ $field['name'] }}" @include('crud::inc.field_wrapper_attributes')>
 
         <label>
             {{ $field['label'] }}
@@ -9,7 +8,7 @@
 
         <input type="hidden"
                name="{{ $field['name'] }}"
-               value="{{ json_encode($field['value']) }}"
+               value="{{ $field['value'] }}"
                 @include('crud::inc.field_attributes')>
 
         @if (isset($field['hint']))
@@ -21,10 +20,8 @@
         <div class="vc-rows">
             {{-- Load rows from model --}}
             @foreach($field['value'] as $row)
-                <?php /** @var \Novius\Backpack\VisualComposer\Models\VisualComposerRow $row */ ?>
                 <div class="vc-row"
-                     data-rowid="{{ $row->id }}"
-                     data-template="{{ class_basename($row->template_class) }}">
+                     data-template="{{ $row->template }}">
                     <div class="vc-handle"></div>
                     <div class="vc-icons">
                         <button class="trash">
@@ -32,7 +29,7 @@
                         </button>
                     </div>
                     <div class="vc-content">
-                        {!! $row->template_class::renderCrud($row) !!}
+                        {!! $row->template::renderCrud($row) !!}
                     </div>
                 </div>
             @endforeach
@@ -42,7 +39,7 @@
             {{-- Load available templates --}}
             @foreach(config('visualcomposer.templates') as $template)
                 <div class="vc-row"
-                     data-template="{{ class_basename($template) }}">
+                     data-template="{{ $template }}">
                     <div class="vc-handle"></div>
                     <div class="vc-icons">
                         <button class="trash">
@@ -65,6 +62,12 @@
         </select>
         <button class="add">
             Ajouter
+        </button>
+
+        —
+
+        <button class="get-visualcomposer-content">
+            compiler
         </button>
 
     </div>
@@ -109,11 +112,8 @@
         <script>
             jQuery(document).ready(function($) {
                 $crudSection = $('#visualcomposer_{{ $field['name'] }}');
-                $hiddenInput = $crudSection.find('input[type=hidden]');
+                $hiddenInput = $crudSection.find('input[name="{{ $field['name'] }}"]');
                 $rowsContainer = $crudSection.find('.vc-rows');
-
-                // Debug: Load all templates
-                $crudSection.find('.vc-templates > .vc-row').clone().appendTo($rowsContainer);
 
                 $crudSection.find('button.add').click(function (e) {
                     e.preventDefault();
@@ -134,7 +134,7 @@
 
                 function insertRow(template)
                 {
-                    $crudSection.find('.vc-templates > .vc-row[data-template='+template+']').clone().appendTo($rowsContainer);
+                    $crudSection.find(".vc-templates > .vc-row[data-template$='"+template+"']").clone().appendTo($rowsContainer);
                     refreshVisualComposerValue();
                 }
 
@@ -148,9 +148,10 @@
                 {
                     var contents = [];
                     $rowsContainer.find('.vc-row').each(function() {
-                        contents.push(JSON.parse(
-                            $(this).find('input[type=hidden]').val()
-                        ));
+                        contents.push({
+                            template: $(this).attr('data-template'),
+                            content: $(this).find('input[type=hidden]').val()
+                        });
                     });
                     $hiddenInput.val(JSON.stringify(contents));
                 }
