@@ -23,13 +23,13 @@ php artisan migrate
 
 In the model:
 
-```PHP?start_inline=1
+```php?start_inline=1
 use Novius\Backpack\VisualComposer\Traits\VisualComposer;
 ```
 
 In the crud controller:
 
-```PHP?start_inline=1
+```php?start_inline=1
 public function setup($template_name = false)
 {
     parent::setup($template_name);
@@ -52,7 +52,7 @@ public function update(PageRequest $request)
 
 In the model view:
 
-```PHP?start_inline=1
+```php?start_inline=1
 @foreach($page->visualComposerRows as $row)
     {!! $row->template::renderFront($row) !!}
 @endforeach
@@ -62,7 +62,7 @@ In the model view:
 
 Make a class and a folder for the views:
 
-```Bash
+```bash
 cd vendor/novius/laravel-backpack-visualcomposer
 touch src/app/Templates/MyNewRowTemplate.php
 mkdir src/resources/views/vendor/visualcomposer/MyNewRowTemplate
@@ -72,7 +72,7 @@ touch src/resources/views/vendor/visualcomposer/MyNewRowTemplate/front.blade.php
 
 In `MyNewRowTemplate.php`:
 
-```PHP
+```php
 <?php
 
 namespace Novius\Backpack\VisualComposer\Templates;
@@ -86,7 +86,7 @@ class MyNewRowTemplate extends RowTemplateAbstract
 
 In `crud.blade.php`:
 
-```HTML
+```html
 <div class="row-template new-row-template">
     <input type="hidden">
     <textarea>{{ $content }}</textarea>
@@ -111,7 +111,7 @@ In `crud.blade.php`:
 
 In `front.blade.php`:
 
-```HTML
+```html
 <div class="row-template new-row-template">
     <input type="hidden">
     <textarea>{{ $content }}</textarea>
