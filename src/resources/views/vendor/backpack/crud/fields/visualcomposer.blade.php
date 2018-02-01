@@ -64,12 +64,6 @@
             Ajouter
         </button>
 
-        —
-
-        <button class="get-visualcomposer-content">
-            compiler
-        </button>
-
     </div>
 
     @push('crud_fields_styles')
@@ -115,34 +109,27 @@
                 $hiddenInput = $crudSection.find('input[name="{{ $field['name'] }}"]');
                 $rowsContainer = $crudSection.find('.vc-rows');
 
+                // Add a row
                 $crudSection.find('button.add').click(function (e) {
                     e.preventDefault();
-                    insertRow($crudSection.find('select[name=templates] option:checked').val());
-                });
-
-                $crudSection.find('button.get-visualcomposer-content').click(function (e) {
-                    e.preventDefault();
+                    var template = $crudSection.find('select[name=templates] option:checked').val();
+                    $crudSection.find(".vc-templates > .vc-row[data-template$='"+template+"']").clone().appendTo($rowsContainer);
                     refreshVisualComposerValue();
                 });
 
+                // Delete a row
                 $crudSection.on('click', '.vc-row button.trash', function (e) {
                     e.preventDefault();
                     $row = $(this).closest('.vc-row');
-                    deleteRow($row);
+                    $row.remove();
                     refreshVisualComposerValue();
                 });
 
-                function insertRow(template)
-                {
-                    $crudSection.find(".vc-templates > .vc-row[data-template$='"+template+"']").clone().appendTo($rowsContainer);
-                    refreshVisualComposerValue();
-                }
-
-                function deleteRow($row)
-                {
-                    $row.remove();
-                    refreshVisualComposerValue();
-                }
+                // Refresh visual composer value
+                $rowsContainer.on('change', '*', function (e) {
+                    e.preventDefault();
+                    setTimeout(refreshVisualComposerValue, 10);
+                });
 
                 function refreshVisualComposerValue()
                 {

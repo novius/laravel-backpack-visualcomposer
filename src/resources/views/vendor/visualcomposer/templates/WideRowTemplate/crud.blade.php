@@ -1,8 +1,4 @@
-@php
-    $class = uniqid('vc');
-@endphp
-
-<div class="{{ $class }}">
+<div class="row-template wide-row-template">
     <input type="hidden">
     <textarea>{{ $content }}</textarea>
 </div>
@@ -12,9 +8,11 @@
         jQuery(document).ready(function () {
             $('.vc-rows').on(
                 'change blur keydown',
-                '.{{ $class }} textarea',
+                '.wide-row-template textarea',
                 function () {
-                    $('.vc-rows .{{ $class }} [type=hidden]').val(this.value);
+                    $(this)
+                        .closest('.row-template')
+                            .find('[type=hidden]').val(this.value);
                 }
             );
         });
@@ -23,7 +21,7 @@
 
 @push('crud_fields_styles')
     <style>
-        .{{ $class }} textarea {
+        .wide-row-template textarea {
             min-width: 100%;
             max-width: 100%;
         }

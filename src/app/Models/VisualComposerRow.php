@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @property string model_class
  * @property integer model_id
  * @property integer order
+ * @property string template
  * @property string template_class
  * @property object content
  */
@@ -40,6 +41,12 @@ class VisualComposerRow extends Model
         }
 
         return $this->model_class::find($this->model_id);
+    }
+
+    // Alias
+    function getTemplateAttribute()
+    {
+        return $this->template_class;
     }
 
     protected static function boot()
