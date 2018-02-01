@@ -86,7 +86,7 @@ class MyNewRowTemplate extends RowTemplateAbstract
 
 In `crud.blade.php`:
 
-```html
+```php
 <div class="row-template new-row-template">
     <input type="hidden">
     <textarea>{{ $content }}</textarea>
@@ -111,30 +111,7 @@ In `crud.blade.php`:
 
 In `front.blade.php`:
 
-```html
-<div class="row-template new-row-template">
-    <input type="hidden">
-    <textarea>{{ $content }}</textarea>
-</div>
-
-@push('crud_fields_scripts')
-    <script>
-        jQuery(document).ready(function () {
-            $('.vc-rows').on(
-                'change blur keydown',
-                '.new-row-template textarea',
-                function () {
-                    $(this)
-                        .closest('.row-template')
-                            .find('[type=hidden]').val(this.value);
-                }
-            );
-        });
-    </script>
-@endpush
-```
-
-```HTML
+```php
 <div class="vc-new-row">
     {!! $content !!}
 </div>
