@@ -4,6 +4,6 @@ namespace Novius\Backpack\VisualComposer\Templates;
 
 class ThreeColumnsRowTemplate extends RowTemplateAbstract
 {
-    static public $name = '3 columns';
-    static public $description = 'Three columns of text';
+    static public $name = '3 colonnes';
+    static public $description = 'Trois colonnes de texte';
 }

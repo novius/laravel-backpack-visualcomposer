@@ -33,6 +33,7 @@ In the crud controller:
 public function setup($template_name = false)
 {
     parent::setup($template_name);
+
     $this->crud->addField([
         'name' => 'visualComposerRows',
         'label' => 'Visual Composer',
@@ -46,6 +47,7 @@ public function setup($template_name = false)
 public function update(PageRequest $request)
 {
     Page::findOrFail($request->id)->visualComposerRows = $request->visualComposerRows;
+
     return parent::update($request);
 }
 ```
@@ -89,50 +91,28 @@ In `crud.blade.php`:
 ```HTML
 <div class="row-template new-row-template">
     <input type="hidden">
-    <textarea>{{ $content }}</textarea>
+    <textarea></textarea>
 </div>
 
 @push('crud_fields_scripts')
     <script>
-        jQuery(document).ready(function () {
-            $('.vc-rows').on(
-                'change blur keydown',
-                '.new-row-template textarea',
-                function () {
-                    $(this)
-                        .closest('.row-template')
-                            .find('[type=hidden]').val(this.value);
-                }
+        window['vc_boot', {!!json_encode($template)!!}] = function ($row, content) {
+            $('textarea', $row).val(content);
+            var update = function () {
+                $('[type=hidden]', $row).val(this.value);
+            };
+            update();
+            $row.on(
+                'change blur keyup',
+                'textarea',
+                update
             );
-        });
+        }
     </script>
 @endpush
 ```
 
 In `front.blade.php`:
-
-```HTML
-<div class="row-template new-row-template">
-    <input type="hidden">
-    <textarea>{{ $content }}</textarea>
-</div>
-
-@push('crud_fields_scripts')
-    <script>
-        jQuery(document).ready(function () {
-            $('.vc-rows').on(
-                'change blur keydown',
-                '.new-row-template textarea',
-                function () {
-                    $(this)
-                        .closest('.row-template')
-                            .find('[type=hidden]').val(this.value);
-                }
-            );
-        });
-    </script>
-@endpush
-```
 
 ```HTML
 <div class="vc-new-row">

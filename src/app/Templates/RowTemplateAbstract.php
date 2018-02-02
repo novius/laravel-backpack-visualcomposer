@@ -15,7 +15,7 @@ abstract class RowTemplateAbstract
 
         return view(
             'visualcomposer::templates.'.class_basename(get_called_class()).'.crud',
-            ['content' => $model->content,]
+            ['template' => get_called_class(),]
         );
     }
 

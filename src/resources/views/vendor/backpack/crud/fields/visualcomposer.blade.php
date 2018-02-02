@@ -17,23 +17,7 @@
             </p>
         @endif
 
-        <div class="vc-rows">
-            {{-- Load rows from model --}}
-            @foreach($field['value'] as $row)
-                <div class="vc-row"
-                     data-template="{{ $row->template }}">
-                    <div class="vc-handle"></div>
-                    <div class="vc-icons">
-                        <button class="trash">
-                            <i class="fa fa-trash"></i>
-                        </button>
-                    </div>
-                    <div class="vc-content">
-                        {!! $row->template::renderCrud($row) !!}
-                    </div>
-                </div>
-            @endforeach
-        </div>
+        <div class="vc-rows"></div>
 
         <div class="vc-templates">
             {{-- Load available templates --}}
@@ -45,6 +29,12 @@
                         <button class="trash">
                             <i class="fa fa-trash"></i>
                         </button>
+                        <button class="up">
+                            <i class="fa fa-arrow-up"></i>
+                        </button>
+                        <button class="down">
+                            <i class="fa fa-arrow-down"></i>
+                        </button>
                     </div>
                     <div class="vc-content">
                         {!! $template::renderCrud() !!}
@@ -54,8 +44,11 @@
         </div>
 
         <select name="templates">
+            <option value="" disabled selected>
+                Sélectionnez un type de ligne à insérer
+            </option>
             @foreach(config('visualcomposer.templates') as $template)
-                <option value="{{ class_basename($template) }}">
+                <option value="{{ $template }}">
                     {{ $template::$name }} — {{ $template::$description }}
                 </option>
             @endforeach
@@ -87,13 +80,17 @@
                 bottom: 0;
                 left: 0;
                 width: 20px;
-                cursor: move;
             }
 
             .vc-row .vc-icons {
                 position: absolute;
                 top: 0;
                 right: 0;
+            }
+
+            .vc-row:first-child .vc-icons .up,
+            .vc-row:last-child .vc-icons .down {
+                display: none;
             }
 
             .vc-row .vc-content {
@@ -109,12 +106,16 @@
                 $hiddenInput = $crudSection.find('input[name="{{ $field['name'] }}"]');
                 $rowsContainer = $crudSection.find('.vc-rows');
 
+                // Load rows
+                $.each(JSON.parse($hiddenInput.val()), function(i, row) {
+                    addRow(row.template, row.content);
+                });
+
                 // Add a row
                 $crudSection.find('button.add').click(function (e) {
                     e.preventDefault();
                     var template = $crudSection.find('select[name=templates] option:checked').val();
-                    $crudSection.find(".vc-templates > .vc-row[data-template$='"+template+"']").clone().appendTo($rowsContainer);
-                    refreshVisualComposerValue();
+                    template && addRow(template);
                 });
 
                 // Delete a row
@@ -125,9 +126,41 @@
                     refreshVisualComposerValue();
                 });
 
-                // Refresh visual composer value
-                $rowsContainer.on('change', '*', function (e) {
+                // Move a row upwards
+                $crudSection.on('click', '.vc-row button.up', function (e) {
                     e.preventDefault();
+                    $row = $(this).closest('.vc-row');
+                    // save previous row
+                    $prev = $row.prev();
+                    var template = $prev.attr('data-template');
+                    var content = $prev.find('[type=hidden]').val();
+                    if(content === '') throw new Error('content est vide');
+                    var order = $prev.index();
+                    // Remove it
+                    $prev.remove();
+                    // Re-insert it below
+                    addRow(template, content, order+1);
+                    refreshVisualComposerValue();
+                });
+
+                // Move a row downwards
+                $crudSection.on('click', '.vc-row button.down', function (e) {
+                    e.preventDefault();
+                    $row = $(this).closest('.vc-row');
+                    // Save next row
+                    $next = $row.next();
+                    var template = $next.attr('data-template');
+                    var content = $next.find('[type=hidden]').val();
+                    var order = $next.index();
+                    // Remove it
+                    $next.remove();
+                    // Re-insert it above
+                    addRow(template, content, order-1);
+                    refreshVisualComposerValue();
+                });
+
+                // Refresh visual composer value. Didn’t find a better way yet.
+                $crudSection.on('mousemove mousewheel', function (e) {
                     setTimeout(refreshVisualComposerValue, 10);
                 });
 
@@ -137,13 +170,25 @@
                     $rowsContainer.find('.vc-row').each(function() {
                         contents.push({
                             template: $(this).attr('data-template'),
-                            content: $(this).find('input[type=hidden]').val()
+                            content: $(this).find('[type=hidden]').val()
                         });
                     });
                     $hiddenInput.val(JSON.stringify(contents));
                 }
+
+                function addRow(template, content, order)
+                {
+                    var $row = $crudSection
+                        .find(".vc-templates > .vc-row[data-template$='"+template.split('\\').pop()+"']").clone();
+                    if (order === undefined) {
+                        $row.appendTo($rowsContainer);
+                    } else {
+                        $row.insertAfter($rowsContainer.children(':nth-child('+(order)+')'));
+                    }
+                    window['vc_boot', template]($row, content);
+                    refreshVisualComposerValue();
+                }
             });
         </script>
     @endpush
-
 @endif

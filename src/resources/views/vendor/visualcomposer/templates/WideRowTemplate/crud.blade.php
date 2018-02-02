@@ -1,21 +1,19 @@
 <div class="row-template wide-row-template">
-    <input type="hidden">
-    <textarea>{{ $content }}</textarea>
+    <textarea class="ckeditor" type="hidden"></textarea>
 </div>
 
 @push('crud_fields_scripts')
     <script>
-        jQuery(document).ready(function () {
-            $('.vc-rows').on(
-                'change blur keydown',
-                '.wide-row-template textarea',
-                function () {
-                    $(this)
-                        .closest('.row-template')
-                            .find('[type=hidden]').val(this.value);
+        window['vc_boot', {!!json_encode($template)!!}] = function ($row, content)
+        {
+            $('textarea.ckeditor', $row)
+                .val(content)
+                .ckeditor({
+                    "filebrowserBrowseUrl": "{{ url(config('backpack.base.route_prefix').'/elfinder/ckeditor') }}",
+                    "extraPlugins" : 'oembed,widget'
                 }
             );
-        });
+        }
     </script>
 @endpush
 
