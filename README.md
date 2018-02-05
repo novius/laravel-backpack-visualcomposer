@@ -69,10 +69,11 @@ Make a class and a folder for the views:
 
 ```bash
 cd vendor/novius/laravel-backpack-visualcomposer
-touch src/app/Templates/MyNewRowTemplate.php
-mkdir src/resources/views/vendor/visualcomposer/MyNewRowTemplate
-touch src/resources/views/vendor/visualcomposer/MyNewRowTemplate/crud.blade.php
-touch src/resources/views/vendor/visualcomposer/MyNewRowTemplate/front.blade.php
+class=MyNewRowTemplate
+touch src/app/Templates/$class.php
+mkdir src/resources/views/vendor/visualcomposer/$class
+touch src/resources/views/vendor/visualcomposer/$class/crud.blade.php
+touch src/resources/views/vendor/visualcomposer/$class/front.blade.php
 ```
 
 In `MyNewRowTemplate.php`:
