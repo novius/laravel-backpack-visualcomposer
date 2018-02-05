@@ -17,6 +17,7 @@ class VisualComposerRowTable extends Migration
             $table->increments('id');
             $table->string('model_class');
             $table->integer('model_id')->length(10)->unsigned();
+            $table->string('model_crudfield');
             $table->integer('order');
             $table->string('template_class');
             $table->text('content');

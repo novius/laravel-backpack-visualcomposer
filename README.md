@@ -35,7 +35,7 @@ public function setup($template_name = false)
     parent::setup($template_name);
 
     $this->crud->addField([
-        'name' => 'visualComposerRows',
+        'name' => 'visualcomposer_main',
         'label' => 'Visual Composer',
         'type' => 'visualcomposer',
         'wrapperAttributes' => [
@@ -46,7 +46,7 @@ public function setup($template_name = false)
 
 public function update(PageRequest $request)
 {
-    Page::findOrFail($request->id)->visualComposerRows = $request->visualComposerRows;
+    Page::findOrFail($request->id)->visualcomposer_main = $request->visualcomposer_main;
 
     return parent::update($request);
 }
@@ -55,7 +55,7 @@ public function update(PageRequest $request)
 In the model view:
 
 ```php?start_inline=1
-@foreach($page->visualComposerRows as $row)
+@foreach($page->visualcomposer_main as $row)
     {!! $row->template::renderFront($row) !!}
 @endforeach
 ```

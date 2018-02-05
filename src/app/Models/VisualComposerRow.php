@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static VisualComposerRow find(integer $id)
  * @property string model_class
  * @property integer model_id
+ * @property string model_crudfields
  * @property integer order
  * @property string template
  * @property string template_class
