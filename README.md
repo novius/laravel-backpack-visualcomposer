@@ -38,6 +38,9 @@ public function setup($template_name = false)
         'name' => 'visualcomposer_main',
         'label' => 'Visual Composer',
         'type' => 'visualcomposer',
+        //'templates' => [
+        //    MyNewRowTemplate::class, // ← Only this template will be available
+        //],
         'wrapperAttributes' => [
             'class' => 'form-group col-md-12',
         ],
@@ -60,7 +63,7 @@ In the model view:
 @endforeach
 ```
 
-## Create new line templates
+## Create new row templates
 
 Make a class and a folder for the views:
 

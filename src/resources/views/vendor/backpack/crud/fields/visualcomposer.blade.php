@@ -21,17 +21,18 @@
         {{-- Load available templates --}}
         @foreach(config('visualcomposer.templates') as $template)
             <div class="vc-row"
-                 data-template="{{ $template }}">
+                 data-template="{{ $template }}"
+                 data-template-label="{{ $template::$name }}">
                 <div class="vc-handle"></div>
                 <div class="vc-icons">
-                    <button class="trash">
-                        <i class="fa fa-trash"></i>
-                    </button>
                     <button class="up">
                         <i class="fa fa-arrow-up"></i>
                     </button>
                     <button class="down">
                         <i class="fa fa-arrow-down"></i>
+                    </button>
+                    <button class="trash">
+                        <i class="fa fa-trash"></i>
                     </button>
                 </div>
                 <div class="vc-content">
@@ -45,7 +46,7 @@
         <option value="" disabled selected>
             Sélectionnez un type de ligne à insérer
         </option>
-        @foreach(config('visualcomposer.templates') as $template)
+        @foreach($field['templates'] ?? config('visualcomposer.templates') as $template)
             <option value="{{ $template }}">
                 {{ $template::$name }} — {{ $template::$description }}
             </option>
@@ -68,7 +69,15 @@
             background: #eee;
             position: relative;
             padding-left: 20px;
+            padding-bottom: 5px;
             margin-bottom: 5px;
+        }
+
+        .vc-row:before {
+            content: attr(data-template-label);
+            display: block;
+            padding: 10px;
+            color: gray;
         }
 
         .vc-row .vc-handle {
@@ -84,6 +93,7 @@
             position: absolute;
             top: 0;
             right: 0;
+            padding: 5px;
         }
 
         .vc-row:first-child .vc-icons .up,
@@ -92,7 +102,7 @@
         }
 
         .vc-row .vc-content {
-            padding: 20px;
+            padding: 0 5px;
         }
     </style>
 @endpush

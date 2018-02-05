@@ -37,8 +37,8 @@
 @push('crud_fields_styles')
     <style>
         .three-columns-row-template textarea {
-            min-width: 33%;
-            max-width: 33%;
+            min-width: 33.2%;
+            max-width: 33.2%;
         }
     </style>
 @endpush
