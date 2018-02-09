@@ -8,5 +8,6 @@ return [
     'templates' => [
         \Novius\Backpack\VisualComposer\Templates\WideRowTemplate::class,
         \Novius\Backpack\VisualComposer\Templates\ThreeColumnsRowTemplate::class,
+        \Novius\Backpack\VisualComposer\Templates\ThreeNumbersRowTemplate::class,
     ],
 ];
