@@ -47,11 +47,18 @@ public function setup($template_name = false)
     ]);
 }
 
+public function store(PageRequest $request)
+{
+    $r = parent::store($request);
+    $this->crud->entry->visualcomposer_main = $request->visualcomposer_main;
+    return $r;
+}
+
 public function update(PageRequest $request)
 {
-    Page::findOrFail($request->id)->visualcomposer_main = $request->visualcomposer_main;
-
-    return parent::update($request);
+    $r = parent::update($request);
+    $this->crud->entry->visualcomposer_main = $request->visualcomposer_main;
+    return $r;
 }
 ```
 
