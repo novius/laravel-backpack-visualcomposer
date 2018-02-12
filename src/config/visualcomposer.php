@@ -7,7 +7,9 @@ return [
     // Installed and available templates to show in crud
     'templates' => [
         \Novius\Backpack\VisualComposer\Templates\WideRowTemplate::class,
+        \Novius\Backpack\VisualComposer\Templates\TwoWysiwygsRowTemplate::class,
         \Novius\Backpack\VisualComposer\Templates\ThreeColumnsRowTemplate::class,
         \Novius\Backpack\VisualComposer\Templates\ThreeNumbersRowTemplate::class,
+        \Novius\Backpack\VisualComposer\Templates\PictureRowTemplate::class,
     ],
 ];

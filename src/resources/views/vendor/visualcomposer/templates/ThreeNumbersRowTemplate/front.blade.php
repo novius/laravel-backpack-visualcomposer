@@ -15,9 +15,10 @@
         </div>
     </div>
 </div>
+<script src="https://rawgit.com/kottenator/jquery-circle-progress/1.2.1/dist/circle-progress.js"></script>
 <script>
 (function($) {
-$('.circle').each(function(n,i){
+$('.vc-three-numbers .circle').each(function(n,i){
     $(i).circleProgress({
         value: parseInt($(i).data('value'))/100,
         fill: {gradient: [['#0681c4', .5], ['#4ac5f8', .5]], gradientAngle: Math.PI / 4}

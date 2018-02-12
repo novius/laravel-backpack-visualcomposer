@@ -2,8 +2,8 @@
 
 namespace Novius\Backpack\VisualComposer\Templates;
 
-class ThreeNumbersRowTemplate extends RowTemplateAbstract
+class ThreeColumnsRowTemplate extends RowTemplateAbstract
 {
-    static public $name = '3 chiffres';
-    static public $description = 'Trois chiffres animés';
+    static public $name = '3 colonnes';
+    static public $description = 'Trois colonnes de texte';
 }

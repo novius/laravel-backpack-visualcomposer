@@ -6,7 +6,7 @@
 
     <input type="hidden"
            name="{{ $field['name'] }}"
-           value="{{ $field['value'] }}"
+           value="{{ old($field['name']) ?: $field['value'] ?? '[]' }}"
             @include('crud::inc.field_attributes')>
 
     @if (isset($field['hint']))
@@ -142,7 +142,6 @@
                 $prev = $row.prev();
                 var template = $prev.attr('data-template');
                 var content = $prev.find('[type=hidden]').val();
-                if(content === '') throw new Error('content est vide');
                 var order = $prev.index();
                 // Remove it
                 $prev.remove();
