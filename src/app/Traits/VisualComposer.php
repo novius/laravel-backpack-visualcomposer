@@ -91,6 +91,9 @@ trait VisualComposer
      */
     public function setVisualComposerRows($crudfield, $value)
     {
+        if (!is_array(json_decode($value))) {
+            return;
+        }
         $this->deleteAllRows($crudfield);
         foreach (json_decode($value) as $i => $row) {
             $this->addRow($crudfield, $row, $i);
