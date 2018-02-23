@@ -3,6 +3,8 @@
 </div>
 
 @push('crud_fields_scripts')
+    <script src="{{ asset('vendor/backpack/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('vendor/backpack/ckeditor/adapters/jquery.js') }}"></script>
     <script>
         window['vc_boot', {!!json_encode($template)!!}] = function ($row, content)
         {
