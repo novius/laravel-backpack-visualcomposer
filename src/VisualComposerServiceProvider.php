@@ -34,5 +34,9 @@ class VisualComposerServiceProvider extends LaravelServiceProvider
             __DIR__.'/config/visualcomposer.php',
             'visualcomposer'
         );
+
+        $this->loadRoutesFrom(
+            __DIR__.'/routes/visualcomposer.php'
+        );
     }
 }

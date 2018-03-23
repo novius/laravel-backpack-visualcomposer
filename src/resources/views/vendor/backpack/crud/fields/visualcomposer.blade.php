@@ -6,7 +6,7 @@
 
     <input type="hidden"
            name="{{ $field['name'] }}"
-           value="{{ old($field['name']) ?: $field['value'] ?? '[]' }}"
+           value="{{ old($field['name']) ?: $field['value'] ?? json_encode($field['default'] ?? []) }}"
             @include('crud::inc.field_attributes')>
 
     @if (isset($field['hint']))
@@ -185,6 +185,10 @@
 
             function addRow(template, content, order)
             {
+                if (window['vc_boot', template] === undefined) {
+                    console.log('Template isn’t supported: '+template);
+                    return;
+                }
                 var $row = $crudSection
                     .find(".vc-templates > .vc-row[data-template$='"+template.split('\\').pop()+"']").clone();
                 if (order === undefined) {
