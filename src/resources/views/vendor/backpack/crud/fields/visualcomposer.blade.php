@@ -6,7 +6,7 @@
 
     <input type="hidden"
            name="{{ $field['name'] }}"
-           value="{{ old($field['name']) ?: $field['value'] ?? json_encode($field['default'] ?? []) }}"
+           value="{!! e(old($field['name']) ?: $field['value'] ?? json_encode($field['default'] ?? [], true)) !!}"
             @include('crud::inc.field_attributes')>
 
     @if (isset($field['hint']))
