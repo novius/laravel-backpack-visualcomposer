@@ -38,9 +38,14 @@ public function setup($template_name = false)
         'name' => 'visualcomposer_main',
         'label' => 'Visual Composer',
         'type' => 'visualcomposer',
-        //'templates' => [
-        //    MyNewRowTemplate::class, // ← Only this template will be available
-        //],
+        // (optionnal) Only those template will be available
+        'templates' => [
+            MyNewRowTemplate::class,
+        ],
+        // (Optionnal) Pre-fill the visualcomposer with rows on new models
+        'default' => [
+            ['template' => MyNewRowTemplate::class],
+        ],
         'wrapperAttributes' => [
             'class' => 'form-group col-md-12',
         ],
