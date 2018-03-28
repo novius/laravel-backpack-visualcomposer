@@ -4,6 +4,7 @@ namespace Novius\Backpack\VisualComposer\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Novius\Backpack\VisualComposer\Models\VisualComposerRow;
 
 /**
@@ -91,9 +92,21 @@ trait VisualComposer
      */
     public function setVisualComposerRows($crudfield, $value)
     {
-        $this->deleteAllRows($crudfield);
-        foreach (json_decode($value) as $i => $row) {
-            $this->addRow($crudfield, $row, $i);
+        try {
+            // Check json beforehand
+            if (!is_array(json_decode($value))) {
+                throw new \Exception;
+            }
+
+            $this->deleteAllRows($crudfield);
+
+            foreach (json_decode($value) as $i => $row) {
+                $this->addRow($crudfield, $row, $i);
+            }
+        }
+        catch(\Exception $e) {
+            // Save problematic input
+            Storage::append('visualcomposer/failed-rows.log', date('c').' '.$value);
         }
     }
 
