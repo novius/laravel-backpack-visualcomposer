@@ -1,4 +1,9 @@
 # Visual Composer for Backpack
+[![Travis](https://img.shields.io/travis/novius/laravel-backpack-visualcomposer.svg?maxAge=1800&style=flat-square)](https://travis-ci.org/novius/laravel-backpack-visualcomposer)
+[![Packagist Release](https://img.shields.io/packagist/v/novius/laravel-backpack-visualcomposer.svg?maxAge=1800&style=flat-square)](https://packagist.org/packages/novius/laravel-backpack-visualcomposer)
+[![Licence](https://img.shields.io/packagist/l/novius/laravel-backpack-visualcomposer.svg?maxAge=1800&style=flat-square)](https://github.com/novius/laravel-backpack-visualcomposer#licence)
+
+Improve the way you edit pages.
 
 ## Installation
 
@@ -9,12 +14,12 @@ composer require novius/laravel-backpack-visualcomposer
 Then add this to `config/app.php`:
 
 ```php
-Novius\Backpack\VisualComposer\VisualComposerServiceProvider::class
+Novius\Backpack\VisualComposer\VisualComposerServiceProvider::class,
 ```
 
 Finally, run:
 
-```bash
+```sh
 php artisan vendor:publish --provider="Novius\Backpack\VisualComposer\VisualComposerServiceProvider"
 php artisan migrate
 ```
@@ -23,13 +28,13 @@ php artisan migrate
 
 In the model:
 
-```php?start_inline=1
+```php
 use Novius\Backpack\VisualComposer\Traits\VisualComposer;
 ```
 
 In the crud controller:
 
-```php?start_inline=1
+```php
 public function setup($template_name = false)
 {
     parent::setup($template_name);
@@ -69,7 +74,7 @@ public function update(PageRequest $request)
 
 In the model view:
 
-```php?start_inline=1
+```php
 @foreach($page->visualcomposer_main as $row)
     {!! $row->template::renderFront($row) !!}
 @endforeach
@@ -79,7 +84,7 @@ In the model view:
 
 Make a class and a folder for the views:
 
-```bash
+```sh
 cd vendor/novius/laravel-backpack-visualcomposer
 class=MyNewRowTemplate
 touch src/app/Templates/$class.php

@@ -8,12 +8,12 @@
         "CRUD"
     ],
     "type": "library",
-    "license": "proprietary",
-    "version": "dev",
+    "license": "AGPL-3.0",
     "authors": [
         {
-            "name": "Cyril Garsaud",
-            "email": "garsaud@novius.fr"
+            "name": "Novius Agency",
+            "email": "team-developpeurs@novius.com",
+            "homepage": "http://novius.com"
         }
     ],
     "require": {
