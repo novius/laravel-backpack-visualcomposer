@@ -102,33 +102,87 @@ namespace Novius\Backpack\VisualComposer\Templates;
 
 class MyNewRowTemplate extends RowTemplateAbstract
 {
-    static public $name = 'My new row template';
-    static public $description = 'This is a new row template';
+    static public $name = 'my-new-row-template';
 }
 ```
 
 In `crud.blade.php`:
 
 ```php
-<div class="row-template new-row-template">
-    <input type="hidden">
-    <textarea></textarea>
+<div class="row-template vc-my-new-row-template">
+    <input type="hidden" class="content">
+    <textarea class="some_field"
+              placeholder="{{ trans('visualcomposer::my-new-row-template.crud.some_field') }}"></textarea>
 </div>
 
 @push('crud_fields_scripts')
     <script>
-        window['vc_boot', {!!json_encode($template)!!}] = function ($row, content) {
-            $('textarea', $row).val(content);
+        window['vc_boot', {!!json_encode($template)!!}] = function ($row, content)
+        {
+            var $hiddenInput = $(".content[type=hidden]", $row);
+            var fields = [
+                'some_field',
+            ];
+
+            // Setup update routine
             var update = function () {
-                $('[type=hidden]', $row).val(this.value);
+                var contents = [];
+                fields.map(function (item) {
+                    contents.push($('.'+item, $row).val());
+                });
+                $hiddenInput.val(
+                    JSON.stringify(contents)
+                );
             };
-            update();
+
+            // Parse and fill fields from json passed in params
+            fields.map(function (item, index) {
+                try {
+                    $('.'+item, $row).val(JSON.parse(content)[index]);
+                } catch(e) {
+                    console.log('Empty or invalid json:', content);
+                }
+            });
+
+            // Update hidden field on change
             $row.on(
                 'change blur keyup',
-                'textarea',
+                'input, textarea, select',
                 update
             );
+
+            // Initialize hidden form input in case we submit with no change
+            update();
         }
     </script>
 @endpush
 ```
+
+In `resources/lang/vendor/visualcomposer/en/templates.php`, add:
+
+```php
+<?php
+...
+    'my-new-row-template' => [
+        'name' => 'My new row template',
+        'crud' => [
+            'some_field' => 'Some field for you to write something in',
+        ],
+    ],
+```
+
+This lib contains 11 built-in templates:
+
+- *Article*, an wysiwyg and inputs for the title, subtitle, date, author, CTA button and user-customizable colors
+- *BackgroundImageAndText*, an uploadable picture with a caption and wysiwyg description
+- *ImageInBase64*, a picture stored as base64 instead of file upload
+- *ImageInContainer*, an uploadable picture, and that’s it
+- *LeftImageRightText*, a picture and some text fields on two columns
+- *LeftTextRightImage*, some text fields and a picture on two columns
+- *LeftTextRightQuote*, some text fields and customizable background color, on two columns
+- *Minimal*, an empty template with the minimum code for it to work
+- *Slideshow*, a slider of unlimited pictures and their captions
+- *ThreecolumnsImageTextCta*, three columns with a picture, a title, a wysiwyg and a CTA button on each of them
+- *TwoColumnsImageTextCta*, the same as above, but on two columns instead of three
+
+Check out how they are made, so you can customize them and build your own.
