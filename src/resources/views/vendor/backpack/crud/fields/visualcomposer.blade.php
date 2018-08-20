@@ -6,7 +6,7 @@
 
     <input type="hidden"
            name="{{ $field['name'] }}"
-           value="{!! e(old($field['name']) ?: $field['value'] ?? json_encode($field['default'] ?? [], true)) !!}"
+           value="{!! htmlspecialchars(old($field['name']) ?: $field['value'] ?? json_encode($field['default'] ?? []), ENT_QUOTES, 'UTF-8', true) !!}"
             @include('crud::inc.field_attributes')>
 
     @if (isset($field['hint']))
@@ -22,7 +22,7 @@
         @foreach(config('visualcomposer.templates') as $template)
             <div class="vc-row"
                  data-template="{{ $template }}"
-                 data-template-label="{{ $template::$name }}">
+                 data-template-label="{{ trans("visualcomposer:{$template::$name}.name") }}">
                 <div class="vc-handle"></div>
                 <div class="vc-icons">
                     <button class="up">
@@ -44,16 +44,16 @@
 
     <select name="templates">
         <option value="" disabled selected>
-            Sélectionnez un type de ligne à insérer
+            {{ trans('visualcomposer::interface.choose_a_template') }}
         </option>
         @foreach($field['templates'] ?? config('visualcomposer.templates') as $template)
             <option value="{{ $template }}">
-                {{ $template::$name }} — {{ $template::$description }}
+                {{ trans("visualcomposer:{$template::$name}.name") }}
             </option>
         @endforeach
     </select>
     <button class="add">
-        Ajouter
+        {{ trans('visualcomposer::interface.add_template') }}
     </button>
 
 </div>

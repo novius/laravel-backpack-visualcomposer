@@ -1,10 +1,10 @@
-<div class="row-template picture-row-template">
+<div class="row-template vc-image-in-base-64">
     <input type="hidden" class="content">
     @include('crud::fields.base64_image', [
         'field' => [
             'name' => 'image',
             'label' => '',
-            'filename' => 'blah.jpg',
+            'filename' => 'base64.jpg',
             'type' => 'base64_image',
         ],
         'crud' => new \Backpack\CRUD\CrudPanel,
@@ -65,18 +65,18 @@
 
 @push('crud_fields_styles')
     <style>
-        .picture-row-template {
+        .vc-image-in-base-64 {
             text-align: center;
         }
-        .picture-row-template img {
+        .vc-image-in-base-64 img {
             max-width: 100%;
         }
-        .picture-row-template .col-sm-6 {
+        .vc-image-in-base-64 .col-sm-6 {
             float: none;
             margin: 1em auto;
         }
-        .picture-row-template div > label:empty,
-        .picture-row-template img#mainImage[src=''] {
+        .vc-image-in-base-64 div > label:empty,
+        .vc-image-in-base-64 img#mainImage[src=''] {
             display: none;
         }
     </style>
