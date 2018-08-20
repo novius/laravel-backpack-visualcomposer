@@ -2,19 +2,19 @@
     <input type="hidden" class="content">
 
     <div class="float-left">
-        <input class="left_title" placeholder="{{ trans('visualcomposer::left-text-right-quote.crud.left_title') }}">
+        <input class="left_title" placeholder="{{ trans('visualcomposer::templates.left-text-right-quote.crud.left_title') }}">
         <textarea class="left_wysiwyg"></textarea>
-        <input class="left_cta_label" placeholder="{{ trans('visualcomposer::left-text-right-quote.crud.left_cta_label') }}">
-        <input class="left_cta_url" placeholder="{{ trans('visualcomposer::left-text-right-quote.crud.left_cta_url') }}">
+        <input class="left_cta_label" placeholder="{{ trans('visualcomposer::templates.left-text-right-quote.crud.left_cta_label') }}">
+        <input class="left_cta_url" placeholder="{{ trans('visualcomposer::templates.left-text-right-quote.crud.left_cta_url') }}">
     </div>
 
     <div class="float-right">
         <textarea class="right_wysiwyg"></textarea>
         <textarea class="right_author"></textarea>
-        <input class="right_cta_label" placeholder="{{ trans('visualcomposer::left-text-right-quote.crud.right_cta_label') }}">
-        <input class="right_cta_url" placeholder="{{ trans('visualcomposer::left-text-right-quote.crud.right_cta_url') }}">
+        <input class="right_cta_label" placeholder="{{ trans('visualcomposer::templates.left-text-right-quote.crud.right_cta_label') }}">
+        <input class="right_cta_url" placeholder="{{ trans('visualcomposer::templates.left-text-right-quote.crud.right_cta_url') }}">
         <label>
-            {{ trans('visualcomposer::left-text-right-quote.crud.right_color') }}
+            {{ trans('visualcomposer::templates.left-text-right-quote.crud.right_color') }}
             <select class="right_color">
                 @foreach(config('visualcomposer.colors') as $name => $code)
                     <option value="{{ $code }}">{{ trans("visualcomposer::colors.$name") }}</option>

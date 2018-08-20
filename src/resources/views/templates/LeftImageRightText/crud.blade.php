@@ -1,22 +1,20 @@
-@php $columns = range(0, 2) @endphp
-
-<div class="row-template vc-three-columns-image-text-cta">
+<div class="row-template vc-left-image-right-text">
     <input type="hidden" class="content">
 
-    @foreach($columns as $i)
-        <div class="float-left">
-            <input class="c{{$i}}_image_url" type="hidden" rel="c{{$i}}_image">
-            <div class="c{{$i}}_image">
-                <img src>
-                <input type="file">
-            </div>
-
-            <input class="c{{$i}}_title" placeholder="{{ trans('visualcomposer::three-columns-image-text-cta.crud.title') }}">
-            <textarea class="c{{$i}}_wysiwyg"></textarea>
-            <input class="c{{$i}}_cta_label" placeholder="{{ trans('visualcomposer::three-columns-image-text-cta.crud.cta_label') }}">
-            <input class="c{{$i}}_cta_url" placeholder="{{ trans('visualcomposer::three-columns-image-text-cta.crud.cta_url') }}">
+    <div class="float-left">
+        <input class="left_image_url" type="hidden" rel="left_image">
+        <div class="left_image">
+            <img src>
+            <input type="file">
         </div>
-    @endforeach
+    </div>
+
+    <div class="float-right">
+        <input class="right_title" placeholder="{{ trans('visualcomposer::templates.left-image-right-text.crud.right_title') }}">
+        <textarea class="right_wysiwyg"></textarea>
+        <input class="right_cta_label" placeholder="{{ trans('visualcomposer::templates.left-image-right-text.crud.right_cta_label') }}">
+        <input class="right_cta_url" placeholder="{{ trans('visualcomposer::templates.left-image-right-text.crud.right_cta_url') }}">
+    </div>
 
     <div class="clearfix"></div>
 </div>
@@ -29,13 +27,11 @@
         {
             var $hiddenInput = $(".content[type=hidden]", $row);
             var fields = [
-                @foreach($columns as $i)
-                    'c{{$i}}_image_url',
-                    'c{{$i}}_title',
-                    'c{{$i}}_wysiwyg',
-                    'c{{$i}}_cta_label',
-                    'c{{$i}}_cta_url',
-                @endforeach
+                'left_image_url',
+                'right_title',
+                'right_wysiwyg',
+                'right_cta_label',
+                'right_cta_url',
             ];
 
             // Setup update routine
@@ -58,9 +54,9 @@
                 }
             });
 
-            @foreach($columns as $i)
-            // Setup wysiwyg
-            $('.c{{$i}}_wysiwyg', $row).ckeditor({
+            // Setup wysiwygs
+            $('.right_wysiwyg', $row).ckeditor({
+                height: '260px',
                 filebrowserBrowseUrl: "{{ url(config('backpack.base.route_prefix').'/elfinder/ckeditor') }}",
                 extraPlugins: '{{ implode(',', config('visualcomposer.ckeditor.extra_plugins', [])) }}',
                 toolbar: @json(config('visualcomposer.ckeditor.toolbar')),
@@ -68,7 +64,7 @@
             });
 
             // Setup picture uploader
-            $('.c{{$i}}_image_url', $row).each(function () {
+            $('.left_image_url', $row).each(function () {
                 var $field = $(this),
                     $uploader = $('.'+$field.attr('rel'), $row),
                     $preview = $('img', $uploader),
@@ -102,7 +98,6 @@
                     });
                 });
             });
-            @endforeach
 
             // Update hidden field on change
             $row.on(
@@ -119,26 +114,30 @@
 
 @push('crud_fields_styles')
     <style>
-        .vc-three-columns-image-text-cta .cke_chrome {
+        .vc-left-image-right-text .cke_chrome {
             width: 100%;
         }
-        .vc-three-columns-image-text-cta input {
+        .vc-left-image-right-text input {
             display: block;
             width: 100%;
             margin: 1rem 0;
         }
-        .vc-three-columns-image-text-cta .float-left {
-            width: 33%;
+        .vc-left-image-right-text .float-right {
+            width: 49%;
+            float: right;
+        }
+        .vc-left-image-right-text .float-left {
+            width: 49%;
             float: left;
         }
-        .vc-three-columns-image-text-cta img {
-            height: 250px;
+        .vc-left-image-right-text img {
             width: 100%;
+            height: 450px;
             object-fit: contain;
             margin: auto;
             display: block;
         }
-        .vc-three-columns-image-text-cta img[src=""] {
+        .vc-left-image-right-text img[src=""] {
             display: none;
         }
     </style>

@@ -7,7 +7,7 @@
         <input type="file">
     </div>
 
-    <input class="image_caption" placeholder="{{ trans('visualcomposer::background-image-and-text.crud.image_caption') }}">
+    <input class="image_caption" placeholder="{{ trans('visualcomposer::templates.background-image-and-text.crud.image_caption') }}">
     <textarea class="wysiwyg"></textarea>
 </div>
 

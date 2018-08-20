@@ -22,7 +22,7 @@
         @foreach(config('visualcomposer.templates') as $template)
             <div class="vc-row"
                  data-template="{{ $template }}"
-                 data-template-label="{{ trans("visualcomposer:{$template::$name}.name") }}">
+                 data-template-label="{{ trans("visualcomposer::templates.{$template::$name}.name") }}">
                 <div class="vc-handle"></div>
                 <div class="vc-icons">
                     <button class="up">
@@ -48,7 +48,7 @@
         </option>
         @foreach($field['templates'] ?? config('visualcomposer.templates') as $template)
             <option value="{{ $template }}">
-                {{ trans("visualcomposer:{$template::$name}.name") }}
+                {{ trans("visualcomposer::templates.{$template::$name}.name") }}
             </option>
         @endforeach
     </select>

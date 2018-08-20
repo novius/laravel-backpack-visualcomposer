@@ -79,4 +79,7 @@ return [
     'image-in-base-64' => [
         'name' => 'Image embedded in base 64',
     ],
+    'minimal' => [
+        'name' => 'Minimal',
+    ],
 ];

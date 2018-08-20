@@ -1,19 +1,19 @@
-<div class="row-template vc-left-image-right-text">
+<div class="row-template vc-left-text-right-image">
     <input type="hidden" class="content">
 
     <div class="float-left">
-        <input class="left_image_url" type="hidden" rel="left_image">
-        <div class="left_image">
-            <img src>
-            <input type="file">
-        </div>
+        <input class="left_title" placeholder="{{ trans('visualcomposer::templates.left-text-right-image.crud.left_title') }}">
+        <textarea class="left_wysiwyg"></textarea>
+        <input class="left_cta_label" placeholder="{{ trans('visualcomposer::templates.left-text-right-image.crud.left_cta_label') }}">
+        <input class="left_cta_url" placeholder="{{ trans('visualcomposer::templates.left-text-right-image.crud.left_cta_url') }}">
     </div>
 
     <div class="float-right">
-        <input class="right_title" placeholder="{{ trans('visualcomposer::left-image-right-text.crud.right_title') }}">
-        <textarea class="right_wysiwyg"></textarea>
-        <input class="right_cta_label" placeholder="{{ trans('visualcomposer::left-image-right-text.crud.right_cta_label') }}">
-        <input class="right_cta_url" placeholder="{{ trans('visualcomposer::left-image-right-text.crud.right_cta_url') }}">
+        <input class="right_image_url" type="hidden" rel="right_image">
+        <div class="right_image">
+            <img src>
+            <input type="file">
+        </div>
     </div>
 
     <div class="clearfix"></div>
@@ -27,11 +27,11 @@
         {
             var $hiddenInput = $(".content[type=hidden]", $row);
             var fields = [
-                'left_image_url',
-                'right_title',
-                'right_wysiwyg',
-                'right_cta_label',
-                'right_cta_url',
+                'left_title',
+                'left_wysiwyg',
+                'left_cta_label',
+                'left_cta_url',
+                'right_image_url',
             ];
 
             // Setup update routine
@@ -55,7 +55,7 @@
             });
 
             // Setup wysiwygs
-            $('.right_wysiwyg', $row).ckeditor({
+            $('.left_wysiwyg', $row).ckeditor({
                 height: '260px',
                 filebrowserBrowseUrl: "{{ url(config('backpack.base.route_prefix').'/elfinder/ckeditor') }}",
                 extraPlugins: '{{ implode(',', config('visualcomposer.ckeditor.extra_plugins', [])) }}',
@@ -64,7 +64,7 @@
             });
 
             // Setup picture uploader
-            $('.left_image_url', $row).each(function () {
+            $('.right_image_url', $row).each(function () {
                 var $field = $(this),
                     $uploader = $('.'+$field.attr('rel'), $row),
                     $preview = $('img', $uploader),
@@ -114,30 +114,30 @@
 
 @push('crud_fields_styles')
     <style>
-        .vc-left-image-right-text .cke_chrome {
+        .vc-left-text-right-image .cke_chrome {
             width: 100%;
         }
-        .vc-left-image-right-text input {
+        .vc-left-text-right-image input {
             display: block;
             width: 100%;
             margin: 1rem 0;
         }
-        .vc-left-image-right-text .float-right {
+        .vc-left-text-right-image .float-right {
             width: 49%;
             float: right;
         }
-        .vc-left-image-right-text .float-left {
+        .vc-left-text-right-image .float-left {
             width: 49%;
             float: left;
         }
-        .vc-left-image-right-text img {
+        .vc-left-text-right-image img {
             width: 100%;
             height: 450px;
             object-fit: contain;
             margin: auto;
             display: block;
         }
-        .vc-left-image-right-text img[src=""] {
+        .vc-left-text-right-image img[src=""] {
             display: none;
         }
     </style>

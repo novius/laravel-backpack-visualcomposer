@@ -20,7 +20,6 @@ Novius\Backpack\VisualComposer\VisualComposerServiceProvider::class,
 Finally, run:
 
 ```sh
-php artisan vendor:publish --provider="Novius\Backpack\VisualComposer\VisualComposerServiceProvider"
 php artisan migrate
 ```
 
@@ -29,7 +28,7 @@ php artisan migrate
 In the model:
 
 ```php
-use Novius\Backpack\VisualComposer\Traits\VisualComposer;
+use \Novius\Backpack\VisualComposer\Traits\VisualComposer;
 ```
 
 In the crud controller:
@@ -42,12 +41,13 @@ public function setup($template_name = false)
     $this->crud->addField([
         'name' => 'visualcomposer_main',
         'label' => 'Visual Composer',
-        'type' => 'visualcomposer',
+        'type' => 'view',
+        'view'   => 'visualcomposer::visualcomposer',
         // (optionnal) Only those template will be available
         'templates' => [
             MyNewRowTemplate::class,
         ],
-        // (Optionnal) Pre-fill the visualcomposer with rows on new models
+        // (optionnal) Pre-fill the visualcomposer with rows on new models
         'default' => [
             ['template' => MyNewRowTemplate::class],
         ],
@@ -171,7 +171,16 @@ In `resources/lang/vendor/visualcomposer/en/templates.php`, add:
     ],
 ```
 
-This lib contains 11 built-in templates:
+## Edit default config and templates
+
+
+Run:
+
+```sh
+php artisan vendor:publish --provider="Novius\Backpack\VisualComposer\VisualComposerServiceProvider"
+```
+
+...it will output the list of copied files than can now be overwritten, including the config, the backpack field type, the language files and 11 built-in templates:
 
 - *Article*, an wysiwyg and inputs for the title, subtitle, date, author, CTA button and user-customizable colors
 - *BackgroundImageAndText*, an uploadable picture with a caption and wysiwyg description

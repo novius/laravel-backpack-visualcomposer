@@ -1,18 +1,18 @@
 <div class="row-template vc-article">
     <input type="hidden" class="content">
 
-    <input class="title" placeholder="{{ trans('visualcomposer::article.crud.title') }}">
-    <input class="date" placeholder="{{ trans('visualcomposer::article.crud.date') }}">
-    <input class="author" placeholder="{{ trans('visualcomposer::article.crud.author') }}">
-    <input class="subtitle" placeholder="{{ trans('visualcomposer::article.crud.subtitle') }}">
+    <input class="title" placeholder="{{ trans('visualcomposer::templates.article.crud.title') }}">
+    <input class="date" placeholder="{{ trans('visualcomposer::templates.article.crud.date') }}">
+    <input class="author" placeholder="{{ trans('visualcomposer::templates.article.crud.author') }}">
+    <input class="subtitle" placeholder="{{ trans('visualcomposer::templates.article.crud.subtitle') }}">
 
     <textarea class="wysiwyg"></textarea>
 
-    <input class="cta_label" placeholder="{{ trans('visualcomposer::article.crud.cta_label') }}">
-    <input class="cta_url" placeholder="{{ trans('visualcomposer::article.crud.cta_url') }}">
+    <input class="cta_label" placeholder="{{ trans('visualcomposer::templates.article.crud.cta_label') }}">
+    <input class="cta_url" placeholder="{{ trans('visualcomposer::templates.article.crud.cta_url') }}">
 
     <label>
-        {{ trans('visualcomposer::article.crud.bg_color_container') }}
+        {{ trans('visualcomposer::templates.article.crud.bg_color_container') }}
         <select class="bg_color_container">
             @foreach(config('visualcomposer.colors') as $name => $code)
                 <option value="{{ $code }}">{{ trans("visualcomposer::colors.$name") }}</option>
@@ -21,7 +21,7 @@
     </label>
 
     <label>
-        {{ trans('visualcomposer::article.crud.bg_color_fullwidth') }}
+        {{ trans('visualcomposer::templates.article.crud.bg_color_fullwidth') }}
         <select class="bg_color_fullwidth">
             @foreach(config('visualcomposer.colors') as $name => $code)
                 <option value="{{ $code }}">{{ trans("visualcomposer::colors.$name") }}</option>

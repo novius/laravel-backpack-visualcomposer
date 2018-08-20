@@ -11,10 +11,10 @@
                 <input type="file">
             </div>
 
-            <input class="c{{$i}}_title" placeholder="{{ trans('visualcomposer::two-columns-image-text-cta.crud.title') }}">
+            <input class="c{{$i}}_title" placeholder="{{ trans('visualcomposer::templates.two-columns-image-text-cta.crud.title') }}">
             <textarea class="c{{$i}}_wysiwyg"></textarea>
-            <input class="c{{$i}}_cta_label" placeholder="{{ trans('visualcomposer::two-columns-image-text-cta.crud.cta_label') }}">
-            <input class="c{{$i}}_cta_url" placeholder="{{ trans('visualcomposer::two-columns-image-text-cta.crud.cta_url') }}">
+            <input class="c{{$i}}_cta_label" placeholder="{{ trans('visualcomposer::templates.two-columns-image-text-cta.crud.cta_label') }}">
+            <input class="c{{$i}}_cta_url" placeholder="{{ trans('visualcomposer::templates.two-columns-image-text-cta.crud.cta_url') }}">
         </div>
     @endforeach
 

@@ -3,16 +3,16 @@
 
     <div class="slides"></div>
     <a class="add btn btn-default" href="#">
-        {{ trans('visualcomposer::slideshow.crud.add_slide') }}
+        {{ trans('visualcomposer::templates.slideshow.crud.add_slide') }}
     </a>
 
     <div class="slide template">
         <img src class="image">
         <input type="file" class="file">
         <textarea class="caption"
-                  placeholder="{{ trans('visualcomposer::slideshow.crud.caption') }}"></textarea>
+                  placeholder="{{ trans('visualcomposer::templates.slideshow.crud.caption') }}"></textarea>
         <a class="delete btn btn-warning" href="#">
-            {{ trans('visualcomposer::slideshow.crud.delete_slide') }}
+            {{ trans('visualcomposer::templates.slideshow.crud.delete_slide') }}
         </a>
     </div>
 </div>
