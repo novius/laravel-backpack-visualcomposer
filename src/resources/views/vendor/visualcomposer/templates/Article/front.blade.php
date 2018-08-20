@@ -19,9 +19,8 @@ list(
             </h2>
             <div>
                 <time>
-                    le {{ $date }}
+                    {{ $date }}
                 </time>
-                par
                 <span rel="author">
                     {{ $author }}
                 </span>
