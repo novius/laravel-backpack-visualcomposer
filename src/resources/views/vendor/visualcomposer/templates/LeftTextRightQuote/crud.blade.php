@@ -17,7 +17,7 @@
             {{ trans('visualcomposer::left-text-right-quote.crud.right_color') }}
             <select class="right_color">
                 @foreach(config('visualcomposer.colors') as $name => $code)
-                    <option value="{{ $code }}">{{ trans("colors.$name") }}</option>
+                    <option value="{{ $code }}">{{ trans("visualcomposer::colors.$name") }}</option>
                 @endforeach
             </select>
         </label>

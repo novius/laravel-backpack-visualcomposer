@@ -15,7 +15,7 @@
         {{ trans('visualcomposer::article.crud.bg_color_container') }}
         <select class="bg_color_container">
             @foreach(config('visualcomposer.colors') as $name => $code)
-                <option value="{{ $code }}">{{ trans("colors.$name") }}</option>
+                <option value="{{ $code }}">{{ trans("visualcomposer::colors.$name") }}</option>
             @endforeach
         </select>
     </label>
@@ -24,7 +24,7 @@
         {{ trans('visualcomposer::article.crud.bg_color_fullwidth') }}
         <select class="bg_color_fullwidth">
             @foreach(config('visualcomposer.colors') as $name => $code)
-                <option value="{{ $code }}">{{ trans("colors.$name") }}</option>
+                <option value="{{ $code }}">{{ trans("visualcomposer::colors.$name") }}</option>
             @endforeach
         </select>
     </label>
