@@ -16,8 +16,11 @@ class VisualComposerServiceProvider extends LaravelServiceProvider
     {
         $this->publishes([__DIR__.'/config' => config_path()], 'config');
 
+        $this->loadTranslationsFrom(__DIR__.'/resources/lang', 'visualcomposer');
+        $this->publishes([__DIR__.'/resources/lang' => resource_path('lang/vendor/visualcomposer')], 'lang');
+
         $this->loadViewsFrom(__DIR__.'/resources/views', 'visualcomposer');
-        $this->publishes([__DIR__.'/resources/views' => resource_path('views')], 'views');
+        $this->publishes([__DIR__.'/resources/views' => resource_path('views/vendor/visualcomposer')], 'views');
 
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
         $this->publishes([__DIR__.'/database/migrations' => database_path('migrations')], 'migrations');
