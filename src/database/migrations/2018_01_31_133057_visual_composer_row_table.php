@@ -14,7 +14,7 @@ class VisualComposerRowTable extends Migration
     public function up()
     {
         Schema::create('visualcomposer_row', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('model_class');
             $table->integer('model_id')->length(10)->unsigned();
             $table->string('model_crudfield');
